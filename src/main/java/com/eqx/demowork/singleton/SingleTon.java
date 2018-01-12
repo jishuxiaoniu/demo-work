@@ -24,7 +24,7 @@ public class SingleTon implements Serializable {
     }
 
     // 如果对象实现了序列化接口，防止反序列化生成新对象
-    public Object readResolve(){
+    private Object readResolve(){
         return getInstance();
     }
 }
