@@ -18,14 +18,9 @@ import java.util.List;
 @Slf4j
 public class HelloWorldController {
 
-    @Value("${aaaa}")
-    private String aaaa;
-
     @Auth
     @GetMapping("/{id}")
     public User getUser(@PathVariable Integer id) {
-
-        log.info(aaaa);
 
         return User.builder()
                 .id(id)

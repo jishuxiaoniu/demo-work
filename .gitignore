@@ -18,6 +18,7 @@ target/
 target/*
 .mvn/*
 *mvnw*
+*.st
 
 ### NetBeans ###
 nbproject/private/
