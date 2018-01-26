@@ -20,7 +20,7 @@ public class RedisController {
     public String redis(@PathVariable long id) {
         long time = System.currentTimeMillis();
         String value = redisService.getStr(id + "");
-        log.info("redis耗时：" + (System.currentTimeMillis() - time));
+        log.info("value={}, redis耗时：", value, (System.currentTimeMillis() - time));
         return "SUCCESS";
     }
 }

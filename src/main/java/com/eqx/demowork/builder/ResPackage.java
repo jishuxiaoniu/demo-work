@@ -30,8 +30,9 @@ public class ResPackage {
     public ResPackage(HttpServletResponse response, String fileName, Integer maxRowPerSheet) throws Exception {
         this.response = response;
         this.fileName = StringUtils.isEmpty(fileName) ? UUID.randomUUID().toString() : fileName;
-        if (maxRowPerSheet != null)
+        if (maxRowPerSheet != null) {
             this.maxRowPerSheet = maxRowPerSheet;
+        }
         response.setContentType("application/xls");
         response.addHeader("Content-Disposition", "attachment;filename=" + new String((fileName).getBytes("UTF-8"), "iso-8859-1") + ".xls");
     }

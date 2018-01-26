@@ -25,7 +25,6 @@ public class JacksonConfig extends ObjectMapper {
 
     @Bean
     public ObjectMapper jacksonObjectMapper() {
-//        log.info("----------------------------> start");
         this.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @Override
             public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {

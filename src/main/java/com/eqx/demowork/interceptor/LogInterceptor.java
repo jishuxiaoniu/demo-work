@@ -17,7 +17,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String addr = request.getRemoteAddr();
         StringBuilder sb = new StringBuilder();
         for (String key : request.getParameterMap().keySet()) {
             sb.append(key).append(":").append(request.getParameterValues(key)[0]).append(";");

@@ -1,6 +1,7 @@
 package com.eqx.demowork.util;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -8,8 +9,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import java.io.Serializable;
 
 @PoiUtils.ModelTitle(name = "人员列表")
-@Setter
-@Getter
+@Data
 @Builder
 public class EmployeeDTO implements Serializable {
 

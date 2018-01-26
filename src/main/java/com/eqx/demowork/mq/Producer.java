@@ -15,8 +15,8 @@ import javax.jms.Queue;
  * @Description: mq producer
  * @Date: Created in 下午1:45 2018/1/15
  */
-@Component
-@EnableScheduling
+//@Component
+//@EnableScheduling
 public class Producer {
 
     public static final String QUEUE = "sample.queue";

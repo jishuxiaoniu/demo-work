@@ -76,7 +76,7 @@ public class PoiUtils {
                         ModelProp modelProp = field.getAnnotation(ModelProp.class);
                         entityList.add(new PoiEntity(modelProp.colIndex(), field, modelProp.name(), modelProp.style()));
                     });
-            HSSFRow headRow = createHeadRow(wb, sheet, entityList);
+            createHeadRow(wb, sheet, entityList);
 
             sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, entityList.size() - 1));
         }
@@ -113,8 +113,9 @@ public class PoiUtils {
             for (int i = 0; i < times; i++) {
                 List<T> list = Lists.newArrayList();
                 int rowJ = i + 1 == times ? srcList.size() % maxSize == 0 ? maxSize : srcList.size() % maxSize : maxSize;
-                for (int j = 0; j < rowJ; j++)
+                for (int j = 0; j < rowJ; j++) {
                     list.add(srcList.get(i));
+                }
                 indexLists.add(list);
             }
         } else {
@@ -136,8 +137,9 @@ public class PoiUtils {
                 Field field = entity.getField();
                 field.setAccessible(true);
                 Object obj = field.get(t);
-                if (obj == null)
+                if (obj == null) {
                     continue;
+                }
                 HSSFCellStyle style = wb.createCellStyle();
                 style.setAlignment(entity.getStyle());
                 HSSFCell cell = row.createCell(entity.getIndex());
@@ -175,13 +177,10 @@ public class PoiUtils {
         font.setFontHeight((short) 400);
         titleStyle.setFont(font);
         HSSFCell titleCell = sheet.createRow(0).createCell(0); // 创建第一行，并在该行创建单元格，设置内容，做为标题行
-        /**
-         * 获取标题
-         */
+        //获取标题
         titleCell.setCellValue(new HSSFRichTextString(titleName));
         titleCell.setCellStyle(titleStyle);
 
-//        sheet.autoSizeColumn(1, true);
         sheet.setDefaultColumnWidth(COLUMN_SIZE);
         return sheet;
     }

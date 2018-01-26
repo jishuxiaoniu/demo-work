@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @Description: mq consumer
  * @Date: Created in 下午1:48 2018/1/15
  */
-@Component
+//@Component
 @Slf4j
 public class Comsumer {
 

@@ -9,10 +9,11 @@ import java.io.Serializable;
  */
 public class SingleTon implements Serializable {
 
-    private SingleTon(){
+    private SingleTon() {
         // 防止反射调用
-        if (getInstance()!=null)
+        if (getInstance() != null) {
             throw new RuntimeException("");
+        }
     }
 
     private static class Single {
@@ -24,7 +25,7 @@ public class SingleTon implements Serializable {
     }
 
     // 如果对象实现了序列化接口，防止反序列化生成新对象
-    private Object readResolve(){
+    private Object readResolve() {
         return getInstance();
     }
 }
