@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class LogInterceptor extends HandlerInterceptorAdapter {
 
-    long beginTime;
+    private ThreadLocal<Long> beginTime = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -22,12 +22,12 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
             sb.append(key).append(":").append(request.getParameterValues(key)[0]).append(";");
         }
         log.info("Request URI: {}, data: {}", request.getRequestURI(), sb.toString());
-        beginTime = System.currentTimeMillis();
+        beginTime.set(System.currentTimeMillis());
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("Request URI: {}, 耗时: {} ms", request.getRequestURI(), System.currentTimeMillis() - beginTime);
+        log.info("Request URI: {}, 耗时: {} ms", request.getRequestURI(), System.currentTimeMillis() - beginTime.get());
     }
 }
