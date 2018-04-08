@@ -1,15 +1,18 @@
 package com.eqx.demowork.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
+
+/**
+ * @author duanhuazhen
+ */
+@Builder
 @Getter
 @Setter
-@ToString
-@Builder
-public class User {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable {
 
     private int id;
     private String name;

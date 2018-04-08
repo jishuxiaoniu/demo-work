@@ -1,82 +1,41 @@
 package com.eqx.demowork.service;
 
+import com.eqx.demowork.model.Order;
+import com.eqx.demowork.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * Created by on 2017/3/1.
  */
 @Service
+@Slf4j
 public class RedisService {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
-
-    @Resource(name = "stringRedisTemplate")
-    ValueOperations<String, String> valOpsStr;
-
-    @Autowired
-    RedisTemplate<Object, Object> redisTemplate;
-
-    @Resource(name = "redisTemplate")
-    ValueOperations<Object, Object> valOpsObj;
-
-    /**
-     * 根据指定key获取String
-     * @param key
-     * @return
-     */
-    public String getStr(String key){
-        return valOpsStr.get(key);
+    public String getStr(String key) {
+        stringRedisTemplate.opsForValue().set(key, key + "_value");
+        return stringRedisTemplate.opsForValue().get(key);
     }
 
-    /**
-     * 设置Str缓存
-     * @param key
-     * @param val
-     */
-    public void setStr(String key, String val){
-        valOpsStr.set(key,val);
+    @Cacheable(value = "eqxiu", key = "'order_' + #id", condition = "#id > 0")
+    public Order getUser(Integer id) {
+        Order order = new Order();
+        order.setId(id);
+        order.setTitle("你好");
+        order.setUserId(12);
+        log.info("order={}", order);
+        return order;
     }
 
-    /**
-     * 删除指定key
-     * @param key
-     */
-    public void del(String key){
-        stringRedisTemplate.delete(key);
+    @CacheEvict(value = "eqxiu", key = "'order_' + #id")
+    public void delUser(Integer id) {
+        log.info("删除数据库id为{}的数据, 并更新缓存", id);
     }
-
-    /**
-     * 根据指定o获取Object
-     * @param o
-     * @return
-     */
-    public Object getObj(Object o){
-        return valOpsObj.get(o);
-    }
-
-    /**
-     * 设置obj缓存
-     * @param o1
-     * @param o2
-     */
-    public void setObj(Object o1, Object o2){
-        valOpsObj.set(o1, o2);
-    }
-
-    /**
-     * 删除Obj缓存
-     * @param o
-     */
-    public void delObj(Object o){
-        redisTemplate.delete(o);
-    }
-
 }
