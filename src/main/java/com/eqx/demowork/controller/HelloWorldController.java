@@ -8,12 +8,17 @@ import com.eqx.demowork.util.EmployeeDTO;
 import com.eqx.demowork.util.PoiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +26,13 @@ import java.util.List;
 @RequestMapping("/hello")
 @Slf4j
 @Api(value = "用户信息", tags = "users")
+@Validated
 public class HelloWorldController {
 
     @Auth
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id) {
-
+    @ApiOperation(value = "获取用户信息")
+    public User getUser(@ApiParam(value = "用户id") @PathVariable Integer id) {
         return User.builder()
                 .id(id)
 //                .name("张三")
@@ -37,8 +43,8 @@ public class HelloWorldController {
 
     @Auth
     @PostMapping("/add")
-    @ApiOperation(value = "新增用户", tags = {"users"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public User addUser(@RequestBody UserForm userForm) {
+    @ApiOperation(value = "新增用户", tags = {"users"})
+    public User addUser(@RequestBody @Valid UserForm userForm, BindingResult result) {
         log.info("userForm = {}", userForm);
         User user = new User();
         user.setId(1);
@@ -46,8 +52,9 @@ public class HelloWorldController {
         return user;
     }
 
+    @ApiOperation(value = "根据用户id，获取用户姓名")
     @RequestMapping(method = RequestMethod.GET)
-    public String getName() {
+    public String getName(@Range(min = 1, max = 100, message = "ID只能从1-100") @ApiParam(value = "用户ID", required = true) @RequestParam Integer userId) {
         return "Hello world" + System.currentTimeMillis();
     }
 
@@ -67,7 +74,6 @@ public class HelloWorldController {
         } catch (Exception e) {
             log.error("downloadEmployeeModel() catch Exception ", e);
         }
-//        return "hello";
     }
 
 }
