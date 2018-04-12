@@ -39,6 +39,6 @@ public class UserForm {
     private String address;
 
     @Email(message = "邮箱格式不正确")
-    @ApiModelProperty(value = "email", example = "123445544.qq.com")
+    @ApiModelProperty(value = "email", example = "123445544@qq.com")
     private String email;
 }

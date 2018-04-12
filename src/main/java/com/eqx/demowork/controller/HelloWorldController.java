@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author duanhuazhen
+ */
 @RestController
 @RequestMapping("/hello")
 @Slf4j
@@ -35,7 +37,7 @@ public class HelloWorldController {
     public User getUser(@ApiParam(value = "用户id") @PathVariable Integer id) {
         return User.builder()
                 .id(id)
-//                .name("张三")
+                .name("张三")
                 .age(11)
                 .address("北京市")
                 .build();

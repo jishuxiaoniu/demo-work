@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: @env@
+  redis:
+    database: 1
+    host: 123.56.23.97
+    port: 6379
+    password: redis123
+    timeout: 5000
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+#  activemq:
+#    broker-url: tcp://172.21.123.71:61616
+#    in-memory: false
+#    password: admin
+#    user: admin
+#    packages:
+#      trust-all: false
+#    pool:
+#      enabled: false
+#      expiry-timeout: 30000
+#      max-connections: 1
