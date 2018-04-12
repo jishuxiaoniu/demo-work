@@ -14,6 +14,16 @@ spring:
       min-idle: 0
       max-active: 8
       max-wait: -1
+
+  datasource:
+    url: jdbc:mysql://123.56.23.97:3306/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 #  activemq:
 #    broker-url: tcp://172.21.123.71:61616
 #    in-memory: false

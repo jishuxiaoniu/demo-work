@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/hello")
 @Slf4j
-@Api(value = "用户信息", tags = "users")
+@Api(value = "用户信息", tags = "hello")
 @Validated
 public class HelloWorldController {
 
@@ -41,17 +41,6 @@ public class HelloWorldController {
                 .age(11)
                 .address("北京市")
                 .build();
-    }
-
-    @Auth
-    @PostMapping("/add")
-    @ApiOperation(value = "新增用户", tags = {"users"})
-    public User addUser(@RequestBody @Valid UserForm userForm, BindingResult result) {
-        log.info("userForm = {}", userForm);
-        User user = new User();
-        user.setId(1);
-        BeanUtils.copyProperties(userForm, user);
-        return user;
     }
 
     @ApiOperation(value = "根据用户id，获取用户姓名")

@@ -16,18 +16,22 @@ import java.util.Set;
 
 @ControllerAdvice
 @Slf4j
+@ResponseBody
 public class GlobleExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(AuthException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResultData handle(AuthException exception) {
+        return new ResultData(0, exception.getMessage(), null, null);
+    }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String defaultExceptionHandler(Exception e) {
         return e.getMessage();
     }
 
-    @ExceptionHandler
-    @ResponseBody
+    @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResultData handle(ValidationException exception) {
         String msg = "";
@@ -43,4 +47,5 @@ public class GlobleExceptionHandler extends ResponseEntityExceptionHandler {
         }
         return new ResultData(0, msg, null, null);
     }
+
 }
