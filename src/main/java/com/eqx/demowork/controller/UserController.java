@@ -1,6 +1,7 @@
 package com.eqx.demowork.controller;
 
 import com.eqx.demowork.annotation.Auth;
+import com.eqx.demowork.annotation.CurrentUser;
 import com.eqx.demowork.form.UserForm;
 import com.eqx.demowork.model.User;
 import com.eqx.demowork.service.UserService;
@@ -11,10 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
@@ -40,6 +39,12 @@ public class UserController {
         User user = new User();
         BeanUtils.copyProperties(userForm, user);
         userService.addUser(user);
+        return user;
+    }
+
+    @GetMapping("/print")
+    @ApiOperation(value = "打印当前用户信息", tags = {"users"})
+    public User printUser(@ApiIgnore @CurrentUser User user) {
         return user;
     }
 }
