@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,22 @@ public class HelloWorldController {
         } catch (Exception e) {
             log.error("downloadEmployeeModel() catch Exception ", e);
         }
+    }
+
+    @ApiOperation(value = "开具发票订单保存")
+    @RequestMapping(value = "invoice/save", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String saveOrderInvoice(@RequestBody InvoiceOrderForm form) {
+        System.out.println("The result is----> " +form);
+        return "invoice/save";
+    }
+
+    @ApiOperation(value = "普票、专票金额校验")
+    @RequestMapping(value = "can/invoice/electron", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getOrdersForInvoicedByElectron(@ApiParam(value = "类型") @RequestParam(required = false) String type,
+                                                 @ApiParam(value = "发票id") @RequestParam Integer[] ids,
+                                                 @ApiParam(value = "订单Id") @RequestParam Long[] orderIds) {
+//        System.out.println("The result is " +form);
+        return "success";
     }
 
 }
