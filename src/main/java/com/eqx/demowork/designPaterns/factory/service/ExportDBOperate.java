@@ -8,7 +8,7 @@ import com.eqx.demowork.designPaterns.factory.api.ExportFileApi;
  * @Description: 具体的创建器实现对象，实现创建导出数据库备份文件形式的对象
  * @Date: Created in 下午3:59 2018/7/11
  */
-public class ExportDBOperate extends ExportOperate {
+public class ExportDBOperate extends AbstractExportOperate {
     @Override
     protected ExportFileApi factoryMethod() {
         // 创建导出数据库文件形式的对象

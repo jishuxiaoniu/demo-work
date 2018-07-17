@@ -1,7 +1,7 @@
 package com.eqx.demowork.designPaterns.factory.client;
 
 import com.eqx.demowork.designPaterns.factory.service.ExportDBOperate;
-import com.eqx.demowork.designPaterns.factory.service.ExportOperate;
+import com.eqx.demowork.designPaterns.factory.service.AbstractExportOperate;
 
 /**
  * @Author duan
@@ -17,7 +17,7 @@ public class Client {
 
     public static void main(String[] args) {
         // 创建需要使用的Creator对象
-        ExportOperate operate = new ExportDBOperate();
+        AbstractExportOperate operate = new ExportDBOperate();
         // 调用输出数据的功能方法
         operate.export("test data");
     }

@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum SerializeType {
 
+    // asdcda
     DefaultJavaSerializer("DefaultJavaSerializer");
 
     private String serializeType;

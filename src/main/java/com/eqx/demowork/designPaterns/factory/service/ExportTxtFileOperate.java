@@ -8,7 +8,7 @@ import com.eqx.demowork.designPaterns.factory.api.ExportTxtFile;
  * @Description:
  * @Date: Created in 下午3:58 2018/7/11
  */
-public class ExportTxtFileOperate extends ExportOperate {
+public class ExportTxtFileOperate extends AbstractExportOperate {
     @Override
     protected ExportFileApi factoryMethod() {
         // 创建导出成文本格式的对象

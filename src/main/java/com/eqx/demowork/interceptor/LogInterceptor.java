@@ -37,5 +37,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         log.info("Request URI: {}, 耗时: {} ms", request.getRequestURI(), System.currentTimeMillis() - beginTime.get());
+        beginTime.remove();
     }
 }
