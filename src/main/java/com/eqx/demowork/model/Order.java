@@ -22,4 +22,6 @@ public class Order implements Serializable {
 
     private Integer userId;
 
+    private Long bankCardId;
+
 }

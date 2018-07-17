@@ -3,6 +3,7 @@ package com.eqx.demowork.controller;
 import com.eqx.demowork.annotation.Auth;
 import com.eqx.demowork.builder.ResPackage;
 import com.eqx.demowork.form.UserForm;
+import com.eqx.demowork.model.Order;
 import com.eqx.demowork.model.User;
 import com.eqx.demowork.util.EmployeeDTO;
 import com.eqx.demowork.util.PoiUtils;
@@ -82,6 +83,16 @@ public class HelloWorldController {
                                                  @ApiParam(value = "订单Id") @RequestParam Long[] orderIds) {
 //        System.out.println("The result is " +form);
         return "success";
+    }
+
+    @ApiOperation(value = "测试包装类型")
+    @PostMapping(value = "/test")
+    public String test(@RequestBody Order order) {
+        Long testBankCardId = 1000L;
+        if (order.getBankCardId() == testBankCardId) {
+            return "0";
+        }
+        return "包装类型比较时必须使用 equals";
     }
 
 }

@@ -138,6 +138,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- spring boot devtools 依赖包. 配置热部署，当文件修改后，需要手动编译才可以 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>true</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
