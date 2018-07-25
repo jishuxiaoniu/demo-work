@@ -1,12 +1,17 @@
 package com.eqx.demowork.controller;
 
+import com.eqx.demowork.model.UserTags;
+import com.eqx.demowork.model.UserTagsDTO;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.springframework.beans.BeanUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -23,6 +28,8 @@ public class TestController {
 
 
     public static void main(String[] args) {
+
+        join();
 
 //        long begin = System.currentTimeMillis();
 //
@@ -82,7 +89,7 @@ public class TestController {
 //        Map<Boolean, List<Integer>> map = partitionPrimes(20);
 //        System.out.println("The result is" +map);
 
-        System.out.println("The result is " + sum(100));
+//        System.out.println("The result is " + sum(100));
 
     }
 
@@ -105,6 +112,59 @@ public class TestController {
                 .reduce(0L, Long::sum);
         System.out.println("The result is ----> " + (System.currentTimeMillis()-begin) + "ms");
         return res;
+    }
+
+    public static void stream() {
+        List<UserTags> tagsList = Lists.newArrayList();
+        for (int i=0;i<5;i++){
+            UserTags userTags = new UserTags();
+            userTags.setId(1L);
+            userTags.setTypeName("123");
+            tagsList.add(userTags);
+        }
+
+        Optional optional = Optional.of(tagsList.stream().map(e -> {
+            UserTagsDTO userTagsDTO = new UserTagsDTO();
+            BeanUtils.copyProperties(e, userTagsDTO);
+            return userTagsDTO;
+        }).collect(Collectors.toList()));
+        System.out.println("The result is ----> " + optional.get());
+    }
+
+    public static void join() {
+
+        int count = 30;
+
+        List<UserTags> tagsList = Lists.newArrayList();
+        for (int i=0;i<50;i++){
+            UserTags userTags = new UserTags();
+            userTags.setId(1L);
+            userTags.setTypeName("123");
+            userTags.setPreferenceTag("aa"+i+",bb" + (i-1));
+            tagsList.add(userTags);
+        }
+
+        List<String> result = Lists.newArrayList();
+        for (UserTags dto : tagsList) {
+            String[] preferenceTags = dto.getPreferenceTag().split(",");
+            if (result.size() < count) {
+                for (String str : preferenceTags) {
+                    result.add(str);
+                }
+            }
+        }
+
+        List<String> result2 = tagsList.stream().map(UserTags::getPreferenceTag)
+                .map(e->e.split(","))
+                .flatMap(Arrays::stream)
+                .limit(30L)
+                .collect(Collectors.toList());
+
+
+        result.stream().forEach(System.out::print);
+        System.out.println("The result is ----> ");
+        result2.stream().forEach(System.out::print);
+
     }
 
 }
