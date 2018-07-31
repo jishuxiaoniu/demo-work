@@ -29,7 +29,9 @@ public class TestController {
 
     public static void main(String[] args) {
 
-        join();
+        testFilter();
+
+//        join();
 
 //        long begin = System.currentTimeMillis();
 //
@@ -104,19 +106,19 @@ public class TestController {
                 .noneMatch(i -> candidate % i == 0);
     }
 
-    public static long sum(long n){
+    public static long sum(long n) {
         long begin = System.currentTimeMillis();
-        long res =  Stream.iterate(1L, i -> i+1)
+        long res = Stream.iterate(1L, i -> i + 1)
                 .limit(n)
 //                .parallel()
                 .reduce(0L, Long::sum);
-        System.out.println("The result is ----> " + (System.currentTimeMillis()-begin) + "ms");
+        System.out.println("The result is ----> " + (System.currentTimeMillis() - begin) + "ms");
         return res;
     }
 
     public static void stream() {
         List<UserTags> tagsList = Lists.newArrayList();
-        for (int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             UserTags userTags = new UserTags();
             userTags.setId(1L);
             userTags.setTypeName("123");
@@ -136,11 +138,11 @@ public class TestController {
         int count = 30;
 
         List<UserTags> tagsList = Lists.newArrayList();
-        for (int i=0;i<50;i++){
+        for (int i = 0; i < 50; i++) {
             UserTags userTags = new UserTags();
             userTags.setId(1L);
             userTags.setTypeName("123");
-            userTags.setPreferenceTag("aa"+i+",bb" + (i-1));
+            userTags.setPreferenceTag("aa" + i + ",bb" + (i - 1));
             tagsList.add(userTags);
         }
 
@@ -155,7 +157,7 @@ public class TestController {
         }
 
         List<String> result2 = tagsList.stream().map(UserTags::getPreferenceTag)
-                .map(e->e.split(","))
+                .map(e -> e.split(","))
                 .flatMap(Arrays::stream)
                 .limit(30L)
                 .collect(Collectors.toList());
@@ -165,6 +167,24 @@ public class TestController {
         System.out.println("The result is ----> ");
         result2.stream().forEach(System.out::print);
 
+    }
+
+    public static void testFilter() {
+        List<Map<String, Object>> list = Lists.newArrayList();
+        for (int i = 0; i < 10; i++) {
+            Map<String, Object> map = Maps.newHashMap();
+            map.put("price", i);
+            list.add(map);
+        }
+
+        List<Map<String, Object>> resList = list.stream()
+                .filter(e -> {
+                    System.out.println("The result is ----> " + e.get("price"));
+                    boolean flag = !e.get("price").toString().contains("-");
+                    return flag;
+                })
+                .collect(Collectors.toList());
+        System.out.println("The result is ----> " + resList);
     }
 
 }
