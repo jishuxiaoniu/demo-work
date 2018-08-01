@@ -1,3 +1,10 @@
 aaaa: dev
 swagger:
   enable: true
+
+msg:
+  event:
+    code:
+      msg1: aaaaa
+      msg2: bbbbb
+      msg3: ccccc

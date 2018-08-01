@@ -2,9 +2,11 @@ package com.eqx.demowork.controller;
 
 import com.eqx.demowork.annotation.Auth;
 import com.eqx.demowork.annotation.CurrentUser;
+import com.eqx.demowork.config.MsgProperties;
 import com.eqx.demowork.form.UserForm;
 import com.eqx.demowork.model.User;
 import com.eqx.demowork.service.UserService;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @Author duan
@@ -31,6 +34,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MsgProperties msgProperties;
 
     @Auth
     @PostMapping("/add")
@@ -46,5 +51,15 @@ public class UserController {
     @ApiOperation(value = "打印当前用户信息", tags = {"users"})
     public User printUser(@ApiIgnore @CurrentUser User user) {
         return user;
+    }
+
+    @GetMapping("/code")
+    @ApiOperation(value = "获取code码", tags = "users")
+    public List<String> getCode() {
+        List<String> list = Lists.newArrayList();
+        list.add(msgProperties.getMsg1());
+        list.add(msgProperties.getMsg2());
+        list.add(msgProperties.getMsg3());
+        return list;
     }
 }
