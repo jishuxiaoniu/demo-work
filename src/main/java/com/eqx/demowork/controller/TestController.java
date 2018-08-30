@@ -4,12 +4,10 @@ import com.eqx.demowork.model.UserTags;
 import com.eqx.demowork.model.UserTagsDTO;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,12 +22,15 @@ import static java.util.stream.Collectors.reducing;
  * @Description:
  * @Date: Created in 下午4:24 2018/5/21
  */
+@Slf4j
 public class TestController {
 
 
     public static void main(String[] args) {
 
-        testFilter();
+        testRandom2();
+
+//        testFilter();
 
 //        join();
 
@@ -185,6 +186,46 @@ public class TestController {
                 })
                 .collect(Collectors.toList());
         System.out.println("The result is ----> " + resList);
+    }
+
+    public static void testRandom() {
+        List<Integer> ids = Lists.newArrayList();
+        for (int i = 0; i < 60; i++) {
+            ids.add(i);
+        }
+        // 采用随机方法（获取当前时间戳对集合size取模）
+        long time = System.currentTimeMillis();
+        List<Integer> list = Lists.newArrayList();
+
+        for (int i = 0; i < 6; i++) {
+            int index = (int) time % ids.size();
+            index = index < 0 ? -index : index;
+            try {
+                list.add(ids.get(index));
+            } catch (Exception e) {
+                log.error("index={}, ids.size={}", index, ids.size());
+                Random random = new Random();
+                int randomIndex = random.nextInt(ids.size());
+                log.info("free-scene: randomIndex={}", randomIndex);
+                list.add(ids.get(randomIndex));
+            }
+            ids.remove(index);
+            // 改变time值，实现伪随机
+            time += time / 10;
+        }
+    }
+
+    public static void testRandom2() {
+
+        Random random = new Random();
+        long begin = System.currentTimeMillis();
+        int n = 100;
+        for (int i = 0; i < 60; i++) {
+            int randomIndex = random.nextInt(n);
+            log.info("free-scene: randomIndex={}", randomIndex);
+            n--;
+        }
+        System.out.println("The result is ----> " + (System.currentTimeMillis() - begin));
     }
 
 }

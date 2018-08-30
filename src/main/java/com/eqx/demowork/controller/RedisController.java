@@ -3,7 +3,9 @@ package com.eqx.demowork.controller;
 import com.eqx.demowork.cache.RedisTemplateLock;
 import com.eqx.demowork.model.Order;
 import com.eqx.demowork.model.User;
+import com.eqx.demowork.myenum.CacheNameEnum;
 import com.eqx.demowork.service.RedisService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,5 +61,11 @@ public class RedisController {
 
     public int addNum() {
         return ++num;
+    }
+
+    @ApiOperation(value = "获取所有缓存key")
+    @GetMapping(value = "/keys")
+    public CacheNameEnum getCache() {
+        return CacheNameEnum.USER_INFO;
     }
 }
