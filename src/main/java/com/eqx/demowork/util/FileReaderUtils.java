@@ -1,18 +1,12 @@
 package com.eqx.demowork.util;
 
 import com.google.common.collect.Lists;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.stream.IntStream;
-
-import static com.sun.tools.doclint.Entity.sum;
 
 /**
  * @Author duan
