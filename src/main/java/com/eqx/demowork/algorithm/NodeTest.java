@@ -5,13 +5,13 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 /**
- * @ClassName Test
+ * @ClassName NodeTest
  * @Description test
  * @Author duanhuazhen
  * @Date 下午2:02 2019/3/11
  * @Version 1.0
  **/
-public class Test {
+public class NodeTest {
 
     public static void main(String[] args) {
         Node node = new Node(-1);
@@ -21,8 +21,8 @@ public class Test {
             node = se;
         }
 
-//        Node newNode = Test.delNodeNoDesc(node, 3);
-        Node newNode = Test.midNode(node);
+//        Node newNode = NodeTest.delNodeNoDesc(node, 3);
+        Node newNode = NodeTest.midNode(node);
 
         while (newNode != null) {
             System.out.print(newNode.value + ",");
@@ -79,7 +79,7 @@ public class Test {
             if (map.containsKey(head.next)) {
                 return false;
             }
-            map.put(head.next, Test.class);
+            map.put(head.next, NodeTest.class);
         }
         return true;
     }
