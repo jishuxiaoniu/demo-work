@@ -16,14 +16,16 @@ spring:
       max-wait: -1
 
   datasource:
-    url: jdbc:mysql://123.56.23.97:3306/test
+    url: mysql.res.eqshow.cn:3306/eqs_enterprise_mgr_dev?useSSL=true&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: YCs/VLcA7Pc7IcgjICuALT81P9rWfLSxAwvFLDrx9tNBRRNkleWdyVRYFH8AQcd76ZFVIprgopzHUIjNCy+E4A==
     driver-class-name: com.mysql.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 #  activemq:
 #    broker-url: tcp://172.21.123.71:61616
 #    in-memory: false
